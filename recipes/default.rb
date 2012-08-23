@@ -18,13 +18,13 @@
 #
 include_recipe "perl"
 
-case node[:platform]
-  when "redhat","centos","scientific"
+case node['platform_family']
+  when "redhat"
     %w{perl-IPC-Run perl-version}.each do |perlpkg|
       package perlpkg
     end
       cpan_module "Getopt::Declare" 
-  when "debian","ubuntu"
+  when "debian"
     %w{libgetopt-declare-perl libipc-run-perl}.each do |perlpkg|
       package perlpkg
     end
