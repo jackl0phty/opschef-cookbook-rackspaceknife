@@ -1,13 +1,14 @@
 {
   "name": "rackspaceknife",
   "description": "Installs/Configures rackspaceknife",
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "long_description": "",
   "maintainer": "Gerald L. Hevener Jr., M.S.",
   "maintainer_email": "jackl0phty@gmail.com",
   "license": "Apache 2.0",
   "platforms": {
   },
   "dependencies": {
+    "perl": ">= 0.0.0"
   },
   "recommendations": {
   },
@@ -25,5 +26,5 @@
   },
   "recipes": {
   },
-  "version": "0.0.2"
+  "version": "0.0.4"
 }

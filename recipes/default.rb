@@ -24,9 +24,11 @@ case node['platform_family']
       package perlpkg
     end
       cpan_module "Getopt::Declare" 
+      cpan_module "WebService::Rackspace::CloudFiles"
   when "debian"
-    %w{libgetopt-declare-perl libipc-run-perl}.each do |perlpkg|
+    %w{libgetopt-declare-perl libipc-run-perl libdatetime-perl}.each do |perlpkg|
       package perlpkg
+      cpan_module "WebService::Rackspace::CloudFiles"
     end
 end
 
