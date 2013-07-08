@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!<%= node.set['rackspaceknife']['which_perl'] %>
 
 ###############################################################################
 # The primary purpose of rackspaceknife.pl is to provide a Perl cmd-line      #
@@ -60,6 +60,7 @@ my $ncontainer;
 my $tbytes;
 my $container;
 my $objcount;
+my $putfile;
 
 # Specify the usage specification for the program
 my $specification = <<'USAGE_SPEC';
@@ -74,6 +75,8 @@ my $specification = <<'USAGE_SPEC';
   			{ create_new_container() }
   --tbytes	Get total bytes used for Rackspace Cloud Files
 			{ get_total_bytes() }
+  --put		Copy/put a file to Rackspace Cloud Files
+			{ put_file() }
   --objcount	Get object count of given container
    		( e.g. # of files in a container )
   			{ get_object_count() }
@@ -153,6 +156,15 @@ sub get_cmd_line_options {
 
         }
 
+	# Get --put option
+        if ( $ARGV[$option] =~ m/--put/gmx ) {
+
+            $putfile = $ARGV[ $option + 1 ];
+
+            # Uncomment next line to debug
+            print "\$putfile = $putfile\n";
+
+        }
 		
 
         # End foreach loop
@@ -266,14 +278,40 @@ sub get_object_count {
 	my $container = $cloudfiles->container(name => "$container");
 
     # Get object count
-	$objcount = $container->object_count;
+    $objcount = $container->object_count;
 
     # Uncomment to debug
     #print "\$username = $username\n";
     #print "\$apikey = $apikey\n";
     #print "\$objcount = $objcount\n";
  
-	# Print object count
-	print "$objcount\n";
+    # Print object count
+    print "$objcount\n";
+
+}
+
+sub put_file {
+
+    # Get command line options
+    get_cmd_line_options();
+
+    # Copy a file to Rackspace Cloud Files
+    # Build CloudFiles object with user and key
+    my $cloudfiles = WebService::Rackspace::CloudFiles->new(
+      user => "$username",
+      key  => "$apikey",
+    );
+
+    # To create a new object with the contents of a local file
+    my $putfile = $container->object( name => 'YYY', content_type => 'text/plain' );
+    $putfile->put_filename('$putfile');
+
+    # Uncomment to debug
+    print "\$username = $username\n";
+    print "\$apikey = $apikey\n";
+    print "\$putfile = $putfile\n";
+
+    # Return sub with a return
+    return;
 
 }
